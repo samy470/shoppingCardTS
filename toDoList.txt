@@ -1,0 +1,9 @@
+protect the app with log in and create account using jwt and bcrypt 
+search multilangue (key value)
+detail in modal
+list in a json file
+component in diractory
+add ids to the items
+specific interface for the card having only name and price
+add gender for the items using dropdown
+add navbar
