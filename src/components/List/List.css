@@ -1,0 +1,6 @@
+.products-grid {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  padding: 20px;
+}
