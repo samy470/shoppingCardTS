@@ -20,7 +20,7 @@ const Login = ({ onLogin }: { onLogin: () => void }) => {
   setError('');
   
   try {
-    const response = await fetch('http://localhost:5001/api/login', {
+    const response = await fetch('http://localhost:5000/api/login', {
       method: 'POST',
       headers: { 
         'Content-Type': 'application/json',

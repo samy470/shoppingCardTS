@@ -1,4 +1,9 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+
+export const fetchGames = createAsyncThunk("cart/fetchGames", async () => {
+  const res = await fetch("http://localhost:5000/api/games");
+  return await res.json();
+});
 
 interface Item {
     name: string;
@@ -44,8 +49,11 @@ const cartSlice = createSlice({
             state.original = action.payload;
             state.list = action.payload;
         }
-
     },
+    extraReducers: (builder) => {
+    builder.addCase(fetchGames.fulfilled, (state, action) => {
+      state.list = action.payload; // DB -> Redux
+    })}
 });
 
 export const { addToCart, showDetails, removeFromCart, searchItems, setList } = cartSlice.actions;

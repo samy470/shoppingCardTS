@@ -3,7 +3,7 @@ import { Dispatch } from "@reduxjs/toolkit";
 import { addToCart } from "../../redux/cartSlice";
 import { showDetails } from "../../redux/cartSlice";
 import { useEffect, useState } from "react";
-import { setList } from "../../redux/cartSlice";
+import { fetchGames } from "../../redux/cartSlice";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Card from 'react-bootstrap/Card';
@@ -15,10 +15,8 @@ const List = () => {
     const [open, setOpen] = useState(false);
 
     useEffect(() => {
-        fetch('http://localhost:5000/games')
-            .then(res => res.json())
-            .then(data => dispatch(setList(data)))
-    }, [])
+    dispatch(fetchGames());
+    }, []);
 
     return (
         <div>
