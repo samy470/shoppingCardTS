@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import Game from "./models/games.js";
+import User from './models/User.js';
 
 const app = express();
 app.use(cors());
@@ -17,24 +18,31 @@ app.get("/api/games", async (req, res) => {
   res.json(games);
 });
 
-import { pool } from "./db.js";
-
 app.post("/api/register", async (req, res) => {
   const { username, password } = req.body;
-  await pool.query(
-    "INSERT INTO users(username, password) VALUES($1,$2)",
-    [username, password]
-  );
-  res.json({ ok: true });
+    
+    const user = await User.create({
+      username,
+      password
+    });
+
+  res.json({ ok: true, user: { id: user.id, username: user.username, password: user.password } });
 });
 
 app.post("/api/login", async (req, res) => {
   const { username, password } = req.body;
-  const result = await pool.query(
-    "SELECT * FROM users WHERE username=$1 AND password=$2",
-    [username, password]
-  );
-  res.json(result.rows[0] || null);
+  const user = await User.findOne({
+      where: { username, password }
+    });
+
+    if (!user) {
+      return res.status(401).json({ error: "Invalid credentials" });
+    }
+
+  res.json({ 
+      id: user.id, 
+      username: user.username 
+    });
 });
 
 

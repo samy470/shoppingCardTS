@@ -1,10 +1,9 @@
-import pkg from "pg";
-const { Pool } = pkg;
+import { Sequelize } from 'sequelize';
 
-export const pool = new Pool({
-  user: "shopuser",
-  host: "localhost",
-  database: "shopdb",
-  password: "1234",
-  port: 5432,
+const sequelize = new Sequelize('shopdb', 'shopuser', '1234', {
+  host: 'localhost',
+  dialect: 'postgres',
+  port: 5432
 });
+
+export default sequelize;

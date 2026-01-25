@@ -52,7 +52,8 @@ const cartSlice = createSlice({
     },
     extraReducers: (builder) => {
     builder.addCase(fetchGames.fulfilled, (state, action) => {
-      state.list = action.payload; // DB -> Redux
+      state.list = action.payload;
+      state.original = action.payload;
     })}
 });
 
